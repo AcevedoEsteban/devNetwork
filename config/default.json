@@ -1,3 +1,4 @@
 {
-  "mongoURI": "mongodb+srv://STEVEN123:Uptownc4@devconnector.oouv6.mongodb.net/MERN?retryWrites=true&w=majority"
+	"mongoURI": "mongodb+srv://STEVEN123:Uptownc4@devconnector.oouv6.mongodb.net/MERN?retryWrites=true&w=majority",
+	"jwtSecert": "the future is a spirt that's mighty and rich"
 }
