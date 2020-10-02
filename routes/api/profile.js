@@ -123,10 +123,33 @@ router.get('/user/:user_id', async (req, res) => {
 		res.json(profile);
 	} catch (err) {
 		console.error(err.message);
-		if (err.kind == 'objectID') {
+		if (err.kind == 'ObjectId') {
 			return res.status(400).json({ msg: ' profile not found' });
 		}
-		res.status(500).send('server ErrRROR');
+		res.status(500).send('server ERROR');
 	}
 });
+//@route DELETE api.profile/
+//@desc DELETE  profile, user & post
+//@acess private
+router.delete('/', auth, async (req, res) => {
+	try {
+		//@todo - remove user posts
+
+		//remove profile
+		await Profile.findOneAndRemove({ user: req.user.id });
+		//remove user
+		await User.findOneAndRemove({ _id: req.user.id });
+		res.json({ msg: 'User deleted' });
+	} catch (err) {
+		console.error(err.message);
+		res.status(500).send('server ERROR');
+	}
+});
+//@route PUT api.profile/experience
+//@desc add profile experience
+//@acess private
+
+router.put('/experince', auth, (req, res) => {});
+
 module.exports = router;
