@@ -5,6 +5,7 @@ const { check, validationResult } = require('express-validator/check');
 
 const Profile = require('../../models/Profile');
 const User = require('../../models/User');
+const { profile_url } = require('gravatar');
 // @route GET api.profile/me
 //@desc Test route
 //@acess private
@@ -150,6 +151,64 @@ router.delete('/', auth, async (req, res) => {
 //@desc add profile experience
 //@acess private
 
-router.put('/experince', auth, (req, res) => {});
+router.put(
+	'/experience',
+	[
+		auth,
+		[
+			check('title', 'Title is required').not().isEmpty(),
+			check('company', 'company is required').not().isEmpty(),
+			check('from', 'From is required').not().isEmpty(),
+		],
+	],
+	async (req, res) => {
+		const errors = validationResult(req);
+		if (!errors.isEmpty()) {
+			return res.status(400).json({ errors: errors.array() });
+		}
+		const {
+			title,
+			company,
+			location,
+			from,
+			to,
+			current,
+			description,
+		} = req.body;
+
+		const newExp = { title, company, location, from, to, current, description };
+
+		try {
+			const profile = await Profile.findOne({ user: req.user.id });
+			profile.experience.unshift(newExp);
+			await profile.save();
+			res.json(profile);
+		} catch (err) {
+			console.error(err.message);
+			res.status(500).send('server Error');
+		}
+	}
+);
+
+//@route DELETE api.profile/experience/:exp_id
+//@desc DELETE experience from profile
+//@acess private
+
+router.delete('/experience/:exp_id', auth, async (req, res) => {
+	try {
+		const profile = await Profile.findOne({ user: req.user.id });
+		// get remove index
+		const removeIndex = profile.experience
+			.map((item) => item.id)
+			.indexOf(req.params.exp_id);
+
+		profile.experience.splice(removeIndex, 1);
+		await profile.save();
+		res.json(profile);
+	} catch (err) {
+		console.error(err.message);
+		res.status(500).send('server Error');
+	}
+});
 
 module.exports = router;
