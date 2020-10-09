@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const ProfileSchema = new Schema({
 	user: {
-		type: mongoose.Schema.Types.ObjectId,
+		type: Schema.Types.ObjectId,
 		ref: 'user',
 	},
 	company: {
@@ -72,7 +72,7 @@ const ProfileSchema = new Schema({
 				type: String,
 				require: true,
 			},
-			form: {
+			from: {
 				type: Date,
 				required: true,
 			},
