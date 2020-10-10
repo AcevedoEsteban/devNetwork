@@ -15,9 +15,11 @@ router.post(
 	async (req, res) => {
 		const errors = validationResult(req);
 		if (!errors.isEmpty()) {
+			// this retruns the array error message on the backend as seen on postman
 			return res.status(400).json({ errors: errors.array() });
 		}
 		try {
+			// get the x-auth-token user login id and uses the info to post a long side the new post text field
 			const user = await User.findById(req.user.id).select('-password');
 
 			const newPost = new Post({
@@ -35,5 +37,10 @@ router.post(
 		}
 	}
 );
+
+
+//@route GET api/posts
+//@desc GET all post
+//@acess private
 
 module.exports = router;
