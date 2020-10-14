@@ -4,6 +4,8 @@
   "description": "social network for devs",
   "main": "server.js",
   "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "start": "node server",
     "server": "nodemon server"
   },
@@ -20,7 +22,28 @@
     "request": "^2.88.2"
   },
   "devDependencies": {
+    "babel-eslint": "^10.1.0",
     "concurrently": "^5.3.0",
-    "nodemon": "^2.0.4"
-  }
+    "eslint": "^7.8.1",
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-config-wesbos": "^1.0.1",
+    "eslint-plugin-html": "^6.1.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.20.6",
+    "eslint-plugin-react-hooks": "^4.1.2",
+    "nodemon": "^2.0.4",
+    "prettier": "^2.1.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/buringKite/devNetwork.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/buringKite/devNetwork/issues"
+  },
+  "homepage": "https://github.com/buringKite/devNetwork#readme"
 }

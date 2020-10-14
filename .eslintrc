@@ -1,0 +1,9 @@
+{
+    "extends": [
+        "wesbos"
+    ],
+    "rules": {
+        "no-unused-wars": 0
+    }
+    
+}
