@@ -146,4 +146,71 @@ router.put('/unlike/:id', auth, async (req, res) => {
   }
 });
 
+// @route POST api/posts/comment/:id
+// @desc comment on a post
+// @acess private
+router.post(
+  '/comment/:id',
+  [auth, check('text', 'text is required').not().isEmpty()],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      // this retruns the array error message on the backend as seen on postman
+      return res.status(400).json({ errors: errors.array() });
+    }
+    try {
+      // get the x-auth-token user login id and uses the info to post a long side the new post text field
+      const user = await User.findById(req.user.id).select('-password');
+      const post = await Post.findById(req.params.id);
+
+      const newComment = new Post({
+        text: req.body.text,
+        name: user.name,
+        avatar: user.avatar,
+        user: req.user.id,
+      });
+
+      post.comments.unshift(newComment);
+      await post.save();
+
+      res.json(post);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('server error');
+    }
+  }
+);
+// @route DELETE api/posts/comment/:id/:comment_id
+// @desc comment on a post
+// @acess private
+router.delete('/comment/:id/:comment_id', auth, async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+    // get comment connected to the post
+    const comment = post.comments.find(
+      (comment) => comment.id === req.params.comment_id
+    );
+    if (!comment) {
+      return res.status(404).json({ msg: 'comment does not exsit' });
+    }
+    // check the comment from the user but its a user to that needs to become a string inorder to compare it to another string
+    if (comment.user.toString() !== req.user.id) {
+      // 401 err mean unathurized
+      return res.status(401).json({ msg: 'user not authorized' });
+    }
+    // get remove index
+    const removeIndex = post.comments
+
+      .map((comments) => comments.user.toString())
+      .indexOf(req.user.id);
+
+    post.comments.splice(removeIndex, 1);
+    //  DONT FORGET THIS CODE AT THE BOTTOM AWAIT POST.SAVE()
+    await post.save();
+    res.json(post.comments);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('server error');
+  }
+});
 module.exports = router;
