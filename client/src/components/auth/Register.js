@@ -1,8 +1,13 @@
 // eslint-disable-next-line
 import React, {  useState } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import PropTypes from 'prop-types';
+import { setAlert } from '../../action/alert';
+import { register } from '../../action/auth';
 
-const Register = () => {
+const Register = ({ setAlert, register }) => {
   // the fist is the state and the second in the array is the function to update the state
   const [formData, setFormData] = useState({
     name: '',
@@ -18,9 +23,10 @@ const Register = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     if (password !== password2) {
-      console.log('passwords do not match');
+      setAlert('passwords do not match', 'danger');
     } else {
-      console.log('success');
+      register({ name, email, password });
+      // props.setAlert('success');
     }
   };
   return (
@@ -37,7 +43,6 @@ const Register = () => {
             name="name"
             value={name}
             onChange={(e) => onChange(e)}
-            required
           />
         </div>
         <div className="form-group">
@@ -47,7 +52,6 @@ const Register = () => {
             name="email"
             value={email}
             onChange={(e) => onChange(e)}
-            required
           />
           <small className="form-text">
             This site uses Gravatar so if you want a profile image, use a
@@ -61,8 +65,6 @@ const Register = () => {
             name="password"
             value={password}
             onChange={(e) => onChange(e)}
-            required
-            minLength="6"
           />
         </div>
         <div className="form-group">
@@ -72,8 +74,6 @@ const Register = () => {
             name="password2"
             value={password2}
             onChange={(e) => onChange(e)}
-            required
-            minLength="6"
           />
         </div>
         <input type="submit" className="btn btn-primary" value="Register" />
@@ -84,7 +84,12 @@ const Register = () => {
     </>
   );
 };
-export default Register;
+
+Register.prototype = {
+  setAlert: PropTypes.func.isRequired,
+  register: PropTypes.func.isRequired,
+};
+export default connect(null, { setAlert, register })(Register);
 // const newUser = {
 //   name,
 //   email,

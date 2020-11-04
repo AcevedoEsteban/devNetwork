@@ -1,8 +1,12 @@
 // eslint-disable-next-line
 import React, {  useState } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+// this action is a prop
+import { login } from '../../action/auth';
 
-const Login = () => {
+const Login = ({ login }) => {
   // the fist is the state and the second in the array is the function to update the state
   const [formData, setFormData] = useState({
     email: '',
@@ -15,7 +19,7 @@ const Login = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   const onSubmit = async (e) => {
     e.preventDefault();
-
+    login(email, password);
     console.log('success');
   };
   return (
@@ -56,4 +60,7 @@ const Login = () => {
     </>
   );
 };
-export default Login;
+Login.prototype = {
+  login: PropTypes.func.isRequired,
+};
+export default connect(null, { login })(Login);
