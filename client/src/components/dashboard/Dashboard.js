@@ -1,15 +1,19 @@
+/* eslint-disable react/button-has-type */
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getCurrentProfile } from '../../action/profile';
+import { deleteAccount, getCurrentProfile } from '../../action/profile';
+import Experience from './Experience';
 import Spinner from '../layout/Spinner';
+import Education from './Education';
 // eslint-disable-next-line import/no-named-as-default
 import DashboardActions from './DashboardActions';
 
 const Dashboard = ({
   //  eslint-disable-next-line
   getCurrentProfile,
+  deleteAccount,
   //  eslint-disable-next-line
   auth: { user },
   //  eslint-disable-next-line
@@ -30,6 +34,13 @@ const Dashboard = ({
       {profile !== null ? (
         <>
           <DashboardActions />
+          <Experience experience={profile.experience} />
+          <Education education={profile.education} />
+          <div className="my-2">
+            <button className="btn btn-danger" onClick={() => deleteAccount()}>
+              <i className="fa fa-user-minus">Delete my account</i>
+            </button>
+          </div>
         </>
       ) : (
         <>
@@ -48,6 +59,7 @@ Dashboard.proptype = {
   getCurrentProfile: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
+  deleteAccount: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -55,4 +67,6 @@ const mapStateToProps = (state) => ({
   profile: state.profile,
 });
 
-export default connect(mapStateToProps, { getCurrentProfile })(Dashboard);
+export default connect(mapStateToProps, { getCurrentProfile, deleteAccount })(
+  Dashboard
+);
