@@ -1,4 +1,5 @@
-/node_modules
-/config
-/config/default.json
 
+# dependencies
+/node_modules
+./config
+./config/default.json
