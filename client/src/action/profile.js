@@ -20,6 +20,7 @@ export const getCurrentProfile = () => async (dispatch) => {
       payload: res.data,
     });
   } catch (err) {
+    dispatch({ type: CLEAR_PROFILE });
     dispatch({
       type: PROFILE_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status },
@@ -31,7 +32,7 @@ export const getCurrentProfile = () => async (dispatch) => {
 export const getProfiles = () => async (dispatch) => {
   dispatch({ type: CLEAR_PROFILE });
   try {
-    const res = await axios.get('/api/profile/');
+    const res = await axios.get('/api/profile');
     dispatch({
       type: GET_PROFILES,
       payload: res.data,
@@ -46,8 +47,8 @@ export const getProfiles = () => async (dispatch) => {
 
 // get profile by id
 export const getProfileById = (userId) => async (dispatch) => {
+  const res = await axios.get(`/api/profile/user/${userId}/`);
   try {
-    const res = await axios.get(`api/profile/user/${userId}`);
     dispatch({
       type: GET_PROFILE,
       payload: res.data,
@@ -87,7 +88,7 @@ export const createProfile = (formData, history, edit = false) => async (
       },
     };
 
-    const res = await axios.post('api/profile', formData, config);
+    const res = await axios.post('/api/profile', formData, config);
     dispatch({
       type: GET_PROFILE,
       payload: res.data,
@@ -119,7 +120,7 @@ export const addExperience = (formData, history) => async (dispatch) => {
       },
     };
 
-    const res = await axios.put('api/profile/experience', formData, config);
+    const res = await axios.put('/api/profile/experience', formData, config);
     dispatch({
       type: UPDATE_PROFILE,
       payload: res.data,
@@ -150,7 +151,7 @@ export const addEducation = (formData, history) => async (dispatch) => {
       },
     };
 
-    const res = await axios.put('api/profile/education', formData, config);
+    const res = await axios.put('/api/profile/education', formData, config);
     dispatch({
       type: UPDATE_PROFILE,
       payload: res.data,
