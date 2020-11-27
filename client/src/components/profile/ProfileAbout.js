@@ -22,7 +22,7 @@ const ProfileAbout = ({
       {skills.map((skill, index) => (
         <div key={index} className="p-1">
           {/* i need to fix this skills and space */}
-          <i classsName="fas fa-check" /> {skill.trim().split('    ,  ')}
+          <i className="fas fa-check" /> {skill}
         </div>
       ))}
     </div>

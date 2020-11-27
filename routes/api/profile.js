@@ -5,8 +5,7 @@ const config = require('config');
 
 const router = express.Router();
 const { check, validationResult } = require('express-validator/check');
-const { profile_url } = require('gravatar');
-const { response } = require('express');
+// const { response } = require('express');
 const auth = require('../../middleware/auth');
 
 const Profile = require('../../models/Profile');
