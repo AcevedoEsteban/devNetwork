@@ -1,19 +1,16 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { post } from 'request';
 import { getPosts } from '../../action/post';
-import Spinner from '../layout/Spinner';
+// import Spinner from '../layout/Spinner';
 import PostItem from './PostItem';
 import PostForm from './PostForm';
 
-const Posts = ({ getPosts, post: { posts, loading } }) => {
+const Posts = ({ getPosts, post: { posts } }) => {
   useEffect(() => {
     getPosts();
   }, [getPosts]);
-  return loading ? (
-    <Spinner />
-  ) : (
+  return (
     <>
       {' '}
       <h1 className="large text-primary">Post</h1>{' '}

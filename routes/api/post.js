@@ -5,7 +5,6 @@ const { check, validationResult } = require('express-validator/check');
 const auth = require('../../middleware/auth');
 
 const Post = require('../../models/Post');
-const Profile = require('../../models/Profile');
 const User = require('../../models/User');
 
 // @route POST api/posts
@@ -13,7 +12,7 @@ const User = require('../../models/User');
 // @acess private
 router.post(
   '/',
-  [auth, check('text', 'text is required').not().isEmpty()],
+  [auth, [check('text', 'text is required').not().isEmpty()]],
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
