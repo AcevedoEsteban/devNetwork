@@ -6,7 +6,6 @@ const app = express();
 // connect database
 connectDB();
 app.use(express.json({ extends: false }));
-// app.get('/', (req, res) => res.send('API running'));
 // define routes
 app.use('/api/users', require('./routes/api/user'));
 app.use('/api/auth', require('./routes/api/auth'));
