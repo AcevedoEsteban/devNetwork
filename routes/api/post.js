@@ -150,7 +150,7 @@ router.put('/unlike/:id', auth, async (req, res) => {
 // @acess private
 router.post(
   '/comment/:id',
-  [auth, check('text', 'text is required').not().isEmpty()],
+  [auth, [check('text', 'text is required').not().isEmpty()]],
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -197,13 +197,17 @@ router.delete('/comment/:id/:comment_id', auth, async (req, res) => {
       // 401 err mean unathurized
       return res.status(401).json({ msg: 'user not authorized' });
     }
+
+    post.comment = post.comments.filter(
+      ({ id }) => id !== req.params.comment_id
+    );
     // get remove index
-    const removeIndex = post.comments
+    // const removeIndex = post.comments
 
-      .map((comments) => comments.user.toString())
-      .indexOf(req.user.id);
+    //   .map((comments) => comments.user.toString())
+    //   .indexOf(req.user.id);
 
-    post.comments.splice(removeIndex, 1);
+    // post.comments.splice(removeIndex, 1);
     //  DONT FORGET THIS CODE AT THE BOTTOM AWAIT POST.SAVE()
     await post.save();
     res.json(post.comments);
