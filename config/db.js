@@ -1,8 +1,6 @@
-const mongoURI =
-  'mongodb+srv://STEVEN123:Uptownc4@devconnector.oouv6.mongodb.net/MERN?retryWrites=true&w=majority';
+const config = require('config');
 
 const mongoose = require('mongoose');
-const config = require('config');
 
 const db = config.get('mongoURI');
 
