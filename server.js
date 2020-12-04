@@ -14,10 +14,6 @@ app.use('/api/auth', require('./routes/api/auth'));
 app.use('/api/posts', require('./routes/api/post'));
 app.use('/api/profile', require('./routes/api/profile'));
 
-mongoose.connect.on('connect', () => {
-  console.log('connected to monogoose');
-});
-
 // serve static assets in production
 if (process.env.NODE_ENV === 'production') {
   // set static folder
