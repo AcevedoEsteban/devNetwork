@@ -1,17 +1,22 @@
 const express = require('express');
 const path = require('path');
+const mongoose = require('mongoose');
 const connectDB = require('./config/db');
 
 const app = express();
 // connect database
 connectDB();
 app.use(express.json({ extends: false }));
-app.get('/', (req, res) => res.send('API running'));
+// app.get('/', (req, res) => res.send('API running'));
 // define routes
 app.use('/api/users', require('./routes/api/user'));
 app.use('/api/auth', require('./routes/api/auth'));
 app.use('/api/posts', require('./routes/api/post'));
 app.use('/api/profile', require('./routes/api/profile'));
+
+mongoose.connect.on('connect', () => {
+  console.log('connected to monogoose');
+});
 
 // serve static assets in production
 if (process.env.NODE_ENV === 'production') {
