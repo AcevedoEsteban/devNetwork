@@ -6,6 +6,7 @@ const app = express();
 // connect database
 connectDB();
 app.use(express.json({ extends: false }));
+// app.get('/', (req, res) => res.send('API running'));
 // define routes
 app.use('/api/users', require('./routes/api/user'));
 app.use('/api/auth', require('./routes/api/auth'));
@@ -14,8 +15,9 @@ app.use('/api/profile', require('./routes/api/profile'));
 
 // serve static assets in production
 if (process.env.NODE_ENV === 'production') {
-  // set static folder
+  // Set static folder
   app.use(express.static('client/build'));
+
   app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
   });
