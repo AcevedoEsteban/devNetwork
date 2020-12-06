@@ -22,9 +22,6 @@ const Profile = ({
 
   return (
     <>
-      <h5>hello delete me soon</h5>
-      <h5>hello delete me soon</h5>
-      <h5>hello delete me soon</h5>
       {profile === null || loading ? (
         <Spinner />
       ) : (
