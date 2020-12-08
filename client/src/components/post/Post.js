@@ -17,10 +17,6 @@ const Post = ({ getPost, post: { post, loading }, match }) => {
     <Spinner />
   ) : (
     <>
-      <h1> bring in font awesome or your code will keep looking</h1>
-      <h1> bring in font awesome or your code will keep looking</h1>
-      <h1> bring in font awesome or your code will keep looking</h1>
-
       <Link to="/posts" className="btn">
         Back to Posts
       </Link>
