@@ -5,12 +5,12 @@ const connectDB = require('./config/db');
 const app = express();
 // connect database
 connectDB();
-app.use(express.json({ extends: false }));
+app.use(express.json());
 // app.get('/', (req, res) => res.send('API running'));
 // define routes
-app.use('/api/users', require('./routes/api/user'));
+app.use('/api/users', require('./routes/api/users'));
 app.use('/api/auth', require('./routes/api/auth'));
-app.use('/api/posts', require('./routes/api/post'));
+app.use('/api/posts', require('./routes/api/posts'));
 app.use('/api/profile', require('./routes/api/profile'));
 
 // serve static assets in production
