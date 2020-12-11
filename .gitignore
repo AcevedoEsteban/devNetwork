@@ -1,4 +1,5 @@
 config/default.json
+
 /node_modules
 
 # dependencies
@@ -10,7 +11,7 @@ config/default.json
 /coverage
 
 # production
-/build
+
 
 # misc
 .DS_Store
