@@ -72,7 +72,7 @@ export const getGithubRepos = (username) => async (dispatch) => {
     });
   } catch (err) {
     dispatch({
-      type: NO_REPOS,
+      type: GET_REPOS,
     });
   }
 };
