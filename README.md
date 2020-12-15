@@ -41,8 +41,8 @@ Testing with the Redux Chrome extension
 Clone this directory, cd into the root of the project and install the required packages using:
 ``` bash
 npm i 
- cd into client then npm i and npm run build
-  in the clint folder you'll also need a mongodb database to run on your local server
+cd into client then npm i and npm run build
+you'll also need a mongodb database to run on your local server
 ```
 
 To start the app run:
