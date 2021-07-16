@@ -1,19 +1,22 @@
 const express = require('express');
-const path = require('path');
 const connectDB = require('./config/db');
+const path = require('path');
 
 const app = express();
-// connect database
+
+// Connect Database
 connectDB();
-app.use(express.json());
-// app.get('/', (req, res) => res.send('API running'));
-// define routes
+
+// Init Middleware
+app.use(express.json({extended: false}));
+
+// Define Routes
 app.use('/api/users', require('./routes/api/users'));
 app.use('/api/auth', require('./routes/api/auth'));
-app.use('/api/posts', require('./routes/api/posts'));
 app.use('/api/profile', require('./routes/api/profile'));
+app.use('/api/posts', require('./routes/api/posts'));
 
-// serve static assets in production
+// Serve static assets in production
 if (process.env.NODE_ENV === 'production') {
   // Set static folder
   app.use(express.static('client/build'));
@@ -24,4 +27,5 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`server start on PORT ${PORT}`));
+
+app.listen(PORT, () => console.log(`Server started on port ${PORT}`));

@@ -8,8 +8,8 @@ import {
   PROFILE_ERROR,
   UPDATE_PROFILE,
   ACCOUNT_DELETED,
-  GET_REPOS,
-  NO_REPOS,
+  // GET_REPOS,
+  // NO_REPOS,
 } from './types';
 
 // get current users profile
